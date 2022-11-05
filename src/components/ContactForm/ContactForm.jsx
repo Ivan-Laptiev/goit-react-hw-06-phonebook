@@ -6,7 +6,6 @@ import { Label, Button, InputName } from "./ContactForm.styled";
 import { addContact } from '../../Redux/contactSlice';
 import {  useDispatch, useSelector } from 'react-redux';
 
-
 const initialValues = {
     id: "",
     name: "",
