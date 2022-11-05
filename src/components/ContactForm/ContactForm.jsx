@@ -13,7 +13,6 @@ const initialValues = {
     number: "",
 };
 
-
 let schema = yup.object().shape({
     name: yup.string().required(),
     number: yup.number().required()
@@ -23,8 +22,7 @@ const ContactForm = () => {
     const contacts = useSelector(state => state.contacts.items);
     const dispatch = useDispatch();
 
-    const onAddContact = ( newContact) => {
-   
+    const onAddContact = ( newContact) => {   
 
         const contactsNames = contacts.map(contact => contact.name);
     
