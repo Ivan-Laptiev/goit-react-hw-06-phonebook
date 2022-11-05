@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import {Field} from "formik";
 
 
 export const Label = styled.label`
@@ -21,5 +21,14 @@ export const Button = styled.button`
     padding: 5px;
     &:hover, &:focus {
         background-color: lightblue;
+    }
+`;
+
+export const InputName = styled(Field)`
+    border: 1px solid gray;
+    border-radius: 5px;
+    outline: none;
+    &:hover, &:focus {
+        border: 1px solid #81b9e7;
     }
 `;

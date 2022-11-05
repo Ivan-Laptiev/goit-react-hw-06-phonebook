@@ -1,18 +1,11 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { nanoid } from 'nanoid';
 import PropTypes from "prop-types";
-import { Label, Button } from "./PhonebookForm.styled";
-import styled from "styled-components";
+import { Label, Button, InputName } from "./ContactForm.styled";
+import { addContact } from '../../Redux/contactSlice';
+import {  useDispatch, useSelector } from 'react-redux';
 
-const InputName = styled(Field)`
-    border: 1px solid gray;
-    border-radius: 5px;
-    outline: none;
-    &:hover, &:focus {
-        border: 1px solid #81b9e7;
-    }
-`;
 
 const initialValues = {
     id: "",
@@ -20,12 +13,27 @@ const initialValues = {
     number: "",
 };
 
+
 let schema = yup.object().shape({
     name: yup.string().required(),
     number: yup.number().required()
 });
 
-const PhonebookForm = ({onAddContact}) => {
+const ContactForm = () => {
+    const contacts = useSelector(state => state.contacts.items);
+    const dispatch = useDispatch();
+
+    const onAddContact = ( newContact) => {
+   
+
+        const contactsNames = contacts.map(contact => contact.name);
+    
+        if (contactsNames.includes(newContact.name)) {
+          alert(`${newContact.name} is already in contacts`)
+        } else {
+          dispatch(addContact(newContact));
+        }    
+      }
     
         const handleSubmit = (values, {resetForm}, ) => {
         const contact = { id: nanoid(7), name: values.name, number: values.number };       
@@ -61,10 +69,10 @@ const PhonebookForm = ({onAddContact}) => {
         )
 }
 
-PhonebookForm.propTypes = {
+ContactForm.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     number: PropTypes.string,
 }
 
-export default PhonebookForm;
+export default ContactForm;
